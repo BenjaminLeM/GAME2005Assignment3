@@ -28,11 +28,12 @@ public class Launch : MonoBehaviour
         GameObject newObject = Instantiate(projectilePrefab);
         newObject.transform.position = transform.position;
         body = newObject.GetComponent<Body>();
-        body.vel = new Vector3(launchSpeed * (Mathf.Cos(Mathf.Deg2Rad * launchYaw) * Mathf.Cos(Mathf.Deg2Rad * launchPitch)),
-                                launchSpeed * (Mathf.Sin(Mathf.Deg2Rad * launchYaw) * Mathf.Cos(Mathf.Deg2Rad * launchPitch)),
-                                launchSpeed * (Mathf.Sin(Mathf.Deg2Rad * launchPitch)));
+        body.vel = new Vector3((launchSpeed * (Mathf.Cos(Mathf.Deg2Rad * launchYaw) * Mathf.Cos(Mathf.Deg2Rad * launchPitch)))/body.grav,
+                                (launchSpeed * (Mathf.Sin(Mathf.Deg2Rad * launchYaw) * Mathf.Cos(Mathf.Deg2Rad * launchPitch))) / body.grav,
+                                (launchSpeed * (Mathf.Sin(Mathf.Deg2Rad * launchPitch))) / body.grav);
         body.drag = drag;
         body.grav = gravity;
+        body.ObjectType = 1;
     }
 
     // Update is called once per frame
@@ -51,7 +52,6 @@ public class Launch : MonoBehaviour
             mouseVelY = Mathf.Pow((mouseY - startY), 2);
             launchSpeed = 0.1f * Mathf.Sqrt(mouseVelX + mouseVelY);
             launchYaw = Mathf.Rad2Deg * Mathf.Atan2(mouseVelY, mouseVelX);
-            Debug.Log(launchYaw);
             Shoot();
         }
     }

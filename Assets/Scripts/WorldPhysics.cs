@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 //using System.Numerics;
 using UnityEngine;
 
@@ -67,18 +68,25 @@ public class WorldPhysics : MonoBehaviour
                 {
                     if (checkSphereSphereCollision(bodyA, bodyB))
                     {
-                        bodyA.GetComponent<Renderer>().material.SetColor("_Color", Color.red);
+                        if (bodyA.ObjectType == 1 && bodyB.ObjectType == 2)
+                        {
+                            Debug.Log("Hit");
+                            //delete bodyB and add +1 to the score
+                        }
+                        else if(bodyA.ObjectType == 2 && bodyB.ObjectType == 1)
+                        {
+                            Debug.Log("Hit");
+                            //delete bodyA and add +1 to the score
+                        }
                     }
                     else
                     {
-                        bodyA.GetComponent<Renderer>().material.SetColor("_Color", Color.white);
                     }
                 }
                 else if (bodyA.GetShape() == 0 && bodyB.GetShape() == 2) 
                 {
                     if (checkSpherePlaneCollision(bodyA, bodyB))
                     {
-                        bodyA.GetComponent<Renderer>().material.SetColor("_Color", Color.red);
                         if (bodyA.isProjectile) 
                         {
                             bodyA = Fix(bodyA, bodyB);
@@ -86,25 +94,21 @@ public class WorldPhysics : MonoBehaviour
                     }
                     else
                     {
-                        bodyA.GetComponent<Renderer>().material.SetColor("_Color", Color.white);
                     }
                 }
                 else if (bodyB.GetShape() == 0 && bodyA.GetShape() == 2)
                 {
                     if (checkSpherePlaneCollision(bodyB, bodyA))
                     {
-                        bodyA.GetComponent<Renderer>().material.SetColor("_Color", Color.red);
                     }
                     else
                     {
-                        bodyA.GetComponent<Renderer>().material.SetColor("_Color", Color.white);
                     }
                 }
                 else if (bodyA.GetShape() == 0 && bodyB.GetShape() == 3)
                 {
                     if (checkSphereHalfPlaneCollision(bodyA, bodyB))
                     {
-                        bodyA.GetComponent<Renderer>().material.SetColor("_Color", Color.red);
                         if (bodyA.isProjectile)
                         {
                             bodyA = Fix(bodyA, bodyB);
@@ -112,18 +116,15 @@ public class WorldPhysics : MonoBehaviour
                     }
                     else
                     {
-                        bodyA.GetComponent<Renderer>().material.SetColor("_Color", Color.white);
                     }
                 }
                 else if (bodyB.GetShape() == 0 && bodyA.GetShape() == 3)
                 {
                     if (checkSphereHalfPlaneCollision(bodyB, bodyA))
                     {
-                        bodyA.GetComponent<Renderer>().material.SetColor("_Color", Color.red);
                     }
                     else
                     {
-                        bodyA.GetComponent<Renderer>().material.SetColor("_Color", Color.white);
                     }
                 }
             }
@@ -150,12 +151,5 @@ public class WorldPhysics : MonoBehaviour
             }
         }
         checkCollision();
-
-        //Simulate(Physics.gravity, Time.fixedDeltaTime);
-        //transform.position = new Vector3(
-        //    transform.position.x + (vel.x * dt) * drag,
-        //    transform.position.y + (vel.y * dt) * drag,
-        //    transform.position.z + (vel.z * dt) * drag
-        //);
     }
 }

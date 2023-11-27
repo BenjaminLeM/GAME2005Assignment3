@@ -9,6 +9,10 @@ public class Shape : MonoBehaviour
     //ShapeType = 1 aabb
     //ShapeType = 2 plane
     //ShapeType = 3 half-plane
+    public int ObjectType = 0;
+    //ObjectType = 0 nothing
+    //ObjectType = 1 Bird
+    //ObjectType = 2 Pig
     public int GetShape()
     {
         return ShapeType;
