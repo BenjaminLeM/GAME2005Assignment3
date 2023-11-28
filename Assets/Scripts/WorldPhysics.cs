@@ -162,6 +162,7 @@ public class WorldPhysics : MonoBehaviour
             }
         }
         checkCollision();
+        UpdatePointsDisplay();
     }
 
     void UpdatePointsDisplay()

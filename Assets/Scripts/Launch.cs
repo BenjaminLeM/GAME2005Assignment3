@@ -51,6 +51,10 @@ public class Launch : MonoBehaviour
             mouseVelX = Mathf.Pow((mouseX - startX), 2);
             mouseVelY = Mathf.Pow((mouseY - startY), 2);
             launchSpeed = 0.1f * Mathf.Sqrt(mouseVelX + mouseVelY);
+            if (launchSpeed > 50.0f) 
+            {
+                launchSpeed = 30.0f;
+            }
             launchYaw = Mathf.Rad2Deg * Mathf.Atan2(mouseVelY, mouseVelX);
             Shoot();
         }
