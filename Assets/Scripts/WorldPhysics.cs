@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
 //using System.Numerics;
+using UnityEngine.UI;
 using UnityEngine;
 
 
@@ -13,6 +14,10 @@ public class WorldPhysics : MonoBehaviour
     public float dt;
     public Vector3 grav = new Vector3(0, -9.8f, 0);
     public List<Body> bodies = new List<Body>();
+
+    public int points = 0;
+    public Text pointsText;
+
     void checkForNewBodies()
     {
         Body[] allObjects = FindObjectsOfType<Body>(false);
@@ -71,11 +76,17 @@ public class WorldPhysics : MonoBehaviour
                         if (bodyA.ObjectType == 1 && bodyB.ObjectType == 2)
                         {
                             Debug.Log("Hit");
+                            Destroy(bodyB.gameObject);
+                            bodies.Remove(bodyB);
+                            points += 1;
                             //delete bodyB and add +1 to the score
                         }
                         else if(bodyA.ObjectType == 2 && bodyB.ObjectType == 1)
                         {
                             Debug.Log("Hit");
+                            Destroy(bodyA.gameObject);
+                            bodies.Remove(bodyA);
+                            points += 1;
                             //delete bodyA and add +1 to the score
                         }
                     }
@@ -151,5 +162,13 @@ public class WorldPhysics : MonoBehaviour
             }
         }
         checkCollision();
+    }
+
+    void UpdatePointsDisplay()
+    {
+        if(pointsText != null)
+        {
+            pointsText.text = "Points: " + points.ToString();
+        }
     }
 }
