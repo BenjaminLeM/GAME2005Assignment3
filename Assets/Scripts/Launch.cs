@@ -1,4 +1,3 @@
-
 using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
@@ -18,11 +17,13 @@ public class Launch : MonoBehaviour
     private float startX, startY;
     private float mouseX, mouseY;
     private float mouseVelX, mouseVelY;
+
     // Start is called before the first frame update
     void Start()
     {
 
     }
+
     void Shoot()
     {
         GameObject newObject = Instantiate(projectilePrefab);

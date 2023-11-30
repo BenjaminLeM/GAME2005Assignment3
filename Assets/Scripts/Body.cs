@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Body : Shape
 {
-    // Using transform.position since we're deriving from MonoBehaviour!
+    // Using transform.position since we're deriving from MonoBehaviour
     //public Vector3 pos = new Vector3(0.0f, 0.0f, 0.0f);
     public Vector3 vel = new Vector3(0.0f, 0.0f, 0.0f);
     public float grav = 1.0f;

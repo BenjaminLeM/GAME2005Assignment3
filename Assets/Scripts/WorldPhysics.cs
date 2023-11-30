@@ -5,10 +5,9 @@ using Unity.VisualScripting;
 using UnityEngine.UI;
 using UnityEngine;
 
-
 public class WorldPhysics : MonoBehaviour
 {
-    // Homework: Incorporate launch position, launch speed, and launch angle into our new custom-physics system!
+    // Incorporate launch position, launch speed, and launch angle into our new custom-physics system
     // Plot 3D projectile motion by specifying a pitch (launch-angle about X) and yaw (launch-angle about Y)
     public Vector3 launchPosition;
     public float dt;
@@ -29,12 +28,14 @@ public class WorldPhysics : MonoBehaviour
             }
         }
     }
+
     bool checkSphereSphereCollision(Body bodyA, Body bodyB)
     {
         Vector3 displacement = bodyA.transform.position - bodyB.transform.position;
         float distance = displacement.magnitude;
         return distance < bodyA.radius;
     }
+
     bool checkSpherePlaneCollision(Body bodyA, Body bodyB)
     {
         Vector3 normal = bodyB.transform.rotation * new Vector3(0, 1, 0);
@@ -42,6 +43,7 @@ public class WorldPhysics : MonoBehaviour
         float projection = Vector3.Dot(displacement, normal);
         return Mathf.Abs(projection) < bodyA.radius;
     }
+
     bool checkSphereHalfPlaneCollision(Body bodyA, Body bodyB)
     { 
         Vector3 normal = bodyB.transform.rotation * new Vector3(0,1,0);
@@ -60,6 +62,7 @@ public class WorldPhysics : MonoBehaviour
 
         return bodyA;
     }
+
     private void checkCollision()
     {
         for (int i = 0; i < bodies.Count; i++)
@@ -68,6 +71,7 @@ public class WorldPhysics : MonoBehaviour
             for (int j = 0; j < bodies.Count; j++)
             {
                 Body bodyB = bodies[j];
+
                 //checks for collision detection type
                 if (bodyA.GetShape() == 0 && bodyB.GetShape() == 0)
                 {
@@ -79,7 +83,7 @@ public class WorldPhysics : MonoBehaviour
                             Destroy(bodyB.gameObject);
                             bodies.Remove(bodyB);
                             points += 1;
-                            //delete bodyB and add +1 to the score
+                            // Delete bodyB and add 1 to the score
                         }
                         else if(bodyA.ObjectType == 2 && bodyB.ObjectType == 1)
                         {
@@ -87,11 +91,8 @@ public class WorldPhysics : MonoBehaviour
                             Destroy(bodyA.gameObject);
                             bodies.Remove(bodyA);
                             points += 1;
-                            //delete bodyA and add +1 to the score
+                            // Delete bodyA and add 1 to the score
                         }
-                    }
-                    else
-                    {
                     }
                 }
                 else if (bodyA.GetShape() == 0 && bodyB.GetShape() == 2) 
@@ -103,18 +104,13 @@ public class WorldPhysics : MonoBehaviour
                             bodyA = Fix(bodyA, bodyB);
                         }
                     }
-                    else
-                    {
-                    }
                 }
                 else if (bodyB.GetShape() == 0 && bodyA.GetShape() == 2)
                 {
                     if (checkSpherePlaneCollision(bodyB, bodyA))
-                    {
-                    }
+                    {}
                     else
-                    {
-                    }
+                    {}
                 }
                 else if (bodyA.GetShape() == 0 && bodyB.GetShape() == 3)
                 {
@@ -126,21 +122,19 @@ public class WorldPhysics : MonoBehaviour
                         }
                     }
                     else
-                    {
-                    }
+                    {}
                 }
                 else if (bodyB.GetShape() == 0 && bodyA.GetShape() == 3)
                 {
                     if (checkSphereHalfPlaneCollision(bodyB, bodyA))
-                    {
-                    }
+                    {}
                     else
-                    {
-                    }
+                    {}
                 }
             }
         }
     }
+
     private void Start()
     {
         dt = Time.fixedDeltaTime;
